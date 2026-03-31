@@ -3,76 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-<title>KR Electrician | Pudukkottai - Pro Billing with UPI QR</title>
+<title>KR Electrician | Premium Billing System - Pudukkottai</title>
 
-<!-- Google Fonts - Jost -->
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Google Fonts - Jost Premium -->
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&display=swap" rel="stylesheet">
 
-<!-- QR Code Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcodejs2-fix/qrcode.min.js"></script>
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <!-- PDF + Excel CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-<!-- HTML5 QR Code Generator for UPI -->
-<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<!-- QR Code Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  font-family: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(135deg, #fef9e6 0%, #f0f2f8 100%);
-  color: #1a1e2b;
-  padding: 20px;
+  font-family: 'Jost', sans-serif;
+  background: linear-gradient(145deg, #f6f9fc 0%, #eef2f7 100%);
+  color: #1a2c3e;
+  padding: 24px;
   min-height: 100vh;
 }
 
-/* Main Container */
-.app-container {
-  max-width: 1400px;
+/* Main Container - Glassmorphism Effect */
+.pro-billing {
+  max-width: 1440px;
   margin: 0 auto;
-  background: #ffffff;
-  border-radius: 40px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 48px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(0, 0, 0, 0.02);
   overflow: hidden;
+  backdrop-filter: blur(0px);
+  transition: all 0.3s ease;
 }
 
-/* Header Premium with Pudukkottai Theme */
-.header-premium {
-  background: linear-gradient(135deg, #8B5A2B 0%, #5D3A1A 100%);
-  padding: 28px 36px;
-  color: white;
+/* Premium Header */
+.premium-header {
+  background: linear-gradient(115deg, #0a2b2a 0%, #1b4d3e 100%);
+  padding: 32px 40px;
   position: relative;
   overflow: hidden;
 }
 
-.header-premium::before {
-  content: "📍";
+.premium-header::after {
+  content: "⚡";
   position: absolute;
-  right: 20px;
-  top: 10px;
-  font-size: 80px;
-  opacity: 0.1;
+  right: 30px;
+  bottom: 10px;
+  font-size: 120px;
+  opacity: 0.06;
   pointer-events: none;
+  font-weight: 900;
 }
 
 @media (max-width: 768px) {
-  .header-premium {
-    padding: 20px 24px;
-  }
   body {
     padding: 12px;
   }
+  .premium-header {
+    padding: 20px 24px;
+  }
 }
 
-.header-flex {
+.header-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -80,645 +82,703 @@ body {
   gap: 20px;
 }
 
-.logo h1 {
-  font-size: 1.9rem;
+.brand-premium h1 {
+  font-size: 2rem;
   font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #ffffff 0%, #ffeaaf 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.logo h1 span {
+.brand-premium h1 i {
+  background: none;
+  -webkit-background-clip: unset;
+  color: #ffd966;
   font-size: 2rem;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 
-.tagline {
+.brand-premium p {
   font-size: 0.8rem;
-  opacity: 0.9;
-  margin-top: 6px;
+  opacity: 0.85;
+  margin-top: 8px;
+  color: #e0e7e0;
+  letter-spacing: 0.3px;
+}
+
+.location-info {
   display: flex;
-  align-items: center;
-  gap: 5px;
+  gap: 12px;
+  margin-top: 8px;
   flex-wrap: wrap;
 }
 
-.business-info {
+.location-badge {
+  background: rgba(255, 217, 102, 0.18);
+  padding: 4px 14px;
+  border-radius: 40px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #ffd966;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rating-badge {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 14px;
+  border-radius: 40px;
+  font-size: 0.7rem;
+  color: #ffd966;
+}
+
+.contact-premium {
   text-align: right;
   font-size: 0.75rem;
-  line-height: 1.5;
-  background: rgba(255,255,255,0.15);
-  padding: 10px 18px;
-  border-radius: 20px;
-  backdrop-filter: blur(8px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
 }
 
-.business-info strong {
-  font-size: 0.85rem;
+.contact-premium strong {
   display: block;
-  color: #FFD966;
+  color: #ffd966;
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
-.location-badge {
-  background: #FFD966;
-  color: #5D3A1A;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  display: inline-block;
-  margin-top: 5px;
-}
-
-/* Two Column Layout */
-.dashboard {
+/* Main Dashboard */
+.dashboard-layout {
   display: flex;
-  gap: 28px;
-  padding: 32px 36px;
+  gap: 32px;
+  padding: 36px 40px;
   flex-wrap: wrap;
 }
 
 @media (max-width: 900px) {
-  .dashboard {
+  .dashboard-layout {
     padding: 24px;
     gap: 24px;
   }
 }
 
-.left-card {
+.left-panel-premium {
   flex: 1.2;
-  min-width: 280px;
-}
-
-.right-card {
-  flex: 2.2;
   min-width: 320px;
 }
 
-/* Form Styles */
-.form-card {
+.right-panel-premium {
+  flex: 2.2;
+  min-width: 340px;
+}
+
+/* Premium Form Card */
+.form-card-premium {
   background: #ffffff;
-  border-radius: 28px;
-  padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  border: 1px solid #eef2ff;
+  border-radius: 32px;
+  padding: 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e8f0ea;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.input-group {
-  margin-bottom: 20px;
+.form-group-premium {
+  margin-bottom: 22px;
 }
 
-.input-group label {
+.form-group-premium label {
   display: block;
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: #5b6e8c;
+  letter-spacing: 1px;
+  color: #6b7f6e;
   margin-bottom: 8px;
 }
 
-.input-group input, .input-group textarea {
+.form-group-premium label i {
+  margin-right: 6px;
+  width: 18px;
+  color: #1b4d3e;
+}
+
+.form-group-premium input, 
+.form-group-premium textarea {
   width: 100%;
-  padding: 14px 16px;
-  border-radius: 18px;
-  border: 1.5px solid #e2e8f0;
+  padding: 14px 18px;
+  border-radius: 24px;
+  border: 1.5px solid #e2ece4;
   font-family: 'Jost', sans-serif;
   font-size: 0.95rem;
-  transition: all 0.2s;
+  transition: all 0.25s;
   outline: none;
   background: #fefefe;
+  font-weight: 450;
 }
 
-.input-group input:focus, .input-group textarea:focus {
-  border-color: #8B5A2B;
-  box-shadow: 0 0 0 3px rgba(139, 90, 43, 0.1);
+.form-group-premium input:focus, 
+.form-group-premium textarea:focus {
+  border-color: #1b4d3e;
+  box-shadow: 0 0 0 3px rgba(27, 77, 62, 0.1);
 }
 
-/* UPI QR Card */
-.upi-card {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e6f4ff 100%);
-  border-radius: 24px;
-  padding: 20px;
-  margin-top: 20px;
-  border: 1px solid #b9e0ff;
-  text-align: center;
-}
-
-.upi-title {
+/* WhatsApp Button */
+.btn-whatsapp-premium {
+  background: linear-gradient(105deg, #25D366, #128C7E);
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 40px;
   font-weight: 700;
-  color: #1e4a76;
-  font-size: 0.9rem;
-  margin-bottom: 12px;
+  font-size: 0.95rem;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.25s;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
+  font-family: 'Jost', sans-serif;
+  margin-top: 8px;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
 }
 
-.qr-container {
+.btn-whatsapp-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(37, 211, 102, 0.35);
+}
+
+/* UPI QR Card Premium */
+.upi-qr-premium {
+  background: linear-gradient(135deg, #f9fefb 0%, #f0f7f2 100%);
+  border-radius: 32px;
+  padding: 28px;
+  margin-top: 24px;
+  border: 1px solid #d4e8dd;
+  text-align: center;
+}
+
+.qr-title {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #1b4d3e;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+#dynamicQRCode {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 15px 0;
   background: white;
-  padding: 15px;
-  border-radius: 20px;
-  display: inline-block;
-  width: 100%;
-  text-align: center;
+  padding: 20px;
+  border-radius: 28px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
-#qrcode {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#qrcode img, #qrcode canvas {
+#dynamicQRCode img, 
+#dynamicQRCode canvas {
   width: 180px;
   height: 180px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 20px;
+  transition: all 0.3s;
 }
 
-.upi-details {
+.upi-details-premium {
   background: white;
-  padding: 12px;
-  border-radius: 16px;
-  margin-top: 12px;
+  padding: 16px;
+  border-radius: 24px;
+  margin-top: 16px;
 }
 
 .upi-id {
   font-family: monospace;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: #0f4c5f;
-  background: #f0f9ff;
-  padding: 8px;
-  border-radius: 12px;
-  word-break: break-all;
-}
-
-.copy-btn {
-  background: #8B5A2B;
-  color: white;
-  border: none;
-  padding: 6px 12px;
+  color: #0f5c4a;
+  background: #e8f3ef;
+  padding: 12px;
   border-radius: 20px;
-  font-size: 0.7rem;
-  cursor: pointer;
-  margin-top: 8px;
+  word-break: break-all;
+  letter-spacing: 0.3px;
 }
 
-.email-info {
-  background: #fef9e6;
-  padding: 8px;
-  border-radius: 12px;
-  font-size: 0.7rem;
-  color: #5D3A1A;
-  margin-top: 10px;
-}
-
-.btn-primary {
-  background: #5D3A1A;
+.copy-btn-premium {
+  background: #1b4d3e;
   color: white;
   border: none;
-  padding: 14px 20px;
+  padding: 8px 18px;
   border-radius: 40px;
+  font-size: 0.7rem;
   font-weight: 600;
-  width: 100%;
   cursor: pointer;
+  margin-top: 12px;
+  font-family: 'Jost', sans-serif;
   transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 0.95rem;
 }
 
-.btn-whatsapp {
-  background: linear-gradient(135deg, #25D366, #128C7E);
-  margin-top: 8px;
+.amount-badge {
+  background: #1b4d3e;
+  color: #ffd966;
+  padding: 10px 16px;
+  border-radius: 40px;
+  font-size: 0.8rem;
   font-weight: 700;
-  font-size: 1rem;
-}
-
-.btn-whatsapp:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+  margin-top: 12px;
+  display: inline-block;
 }
 
 /* Add Item Bar */
-.add-item-bar {
-  background: #f9fafd;
-  border-radius: 24px;
-  padding: 18px;
-  margin-bottom: 24px;
+.add-item-premium {
+  background: #fafdfb;
+  border-radius: 28px;
+  padding: 20px;
+  margin-bottom: 28px;
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  border: 1px solid #eef2ff;
+  border: 1px solid #e2ece4;
 }
 
-.add-item-bar input {
+.add-item-premium input {
   flex: 1;
-  min-width: 130px;
-  padding: 12px 16px;
+  min-width: 140px;
+  padding: 14px 20px;
   border-radius: 40px;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid #e2ece4;
   font-family: 'Jost', sans-serif;
   font-size: 0.9rem;
+  outline: none;
+  transition: all 0.2s;
 }
 
-.btn-add {
-  background: #8B5A2B;
+.add-item-premium input:focus {
+  border-color: #1b4d3e;
+}
+
+.btn-add-premium {
+  background: #1b4d3e;
   color: white;
   font-weight: 700;
-  padding: 12px 28px;
+  padding: 14px 36px;
   border-radius: 40px;
   border: none;
   cursor: pointer;
-  transition: all 0.2s;
+  font-family: 'Jost', sans-serif;
   font-size: 0.9rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.btn-add:hover {
-  background: #5D3A1A;
+.btn-add-premium:hover {
+  background: #0f3a2e;
   transform: scale(0.98);
 }
 
-/* Table Styles */
-.table-wrapper {
+/* Table Premium */
+.table-wrapper-premium {
   overflow-x: auto;
-  border-radius: 24px;
-  border: 1px solid #eef2ff;
-  margin-bottom: 20px;
+  border-radius: 28px;
+  border: 1px solid #e2ece4;
+  margin-bottom: 24px;
   background: white;
 }
 
-.bill-table {
+.invoice-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.85rem;
-  min-width: 550px;
+  min-width: 580px;
 }
 
-.bill-table th {
-  background: #fef5e8;
-  padding: 16px 12px;
+.invoice-table th {
+  background: #f4f9f6;
+  padding: 18px 14px;
   text-align: center;
   font-weight: 700;
-  color: #5D3A1A;
-  border-bottom: 2px solid #8B5A2B;
+  color: #1b4d3e;
+  border-bottom: 2px solid #d0e2d8;
   font-size: 0.75rem;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
 }
 
-.bill-table td {
-  padding: 14px 10px;
+.invoice-table td {
+  padding: 16px 12px;
   text-align: center;
-  border-bottom: 1px solid #f0f2f8;
-  color: #1e2a3a;
+  border-bottom: 1px solid #eff5f0;
+  color: #2c423a;
   font-weight: 500;
 }
 
-.delete-item {
+.delete-btn {
   background: none;
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
-  color: #ef4444;
-  padding: 5px 12px;
+  color: #e67e22;
+  padding: 6px 14px;
   border-radius: 30px;
   transition: all 0.2s;
+  font-weight: 600;
 }
 
 .empty-state td {
-  padding: 48px;
+  padding: 56px;
   text-align: center;
-  color: #94a3b8;
+  color: #98aea2;
   font-style: italic;
+  font-weight: 500;
 }
 
-/* Total Section */
-.total-section {
-  background: linear-gradient(105deg, #fef5e8, #fff9ef);
-  padding: 20px 28px;
-  border-radius: 24px;
+/* Total Premium */
+.total-premium {
+  background: linear-gradient(115deg, #eef7f2, #e2efe8);
+  padding: 24px 32px;
+  border-radius: 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 20px;
-  border: 1px solid #e6d5b8;
+  margin-bottom: 24px;
+  border: 1px solid #cde3d9;
 }
 
-.total-label {
-  font-weight: 700;
-  font-size: 1rem;
-  color: #8B5A2B;
+.total-label-premium {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #1b4d3e;
   letter-spacing: 0.5px;
 }
 
-.total-amount {
-  font-size: 2rem;
+.total-amount-premium {
+  font-size: 2.2rem;
   font-weight: 800;
-  color: #5D3A1A;
+  color: #0b2b26;
   font-family: 'Jost', monospace;
+  letter-spacing: -0.5px;
 }
 
 /* Action Buttons */
-.action-group {
+.action-group-premium {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
-.btn-outline {
+.btn-premium {
   flex: 1;
-  padding: 12px 18px;
-  border-radius: 44px;
-  font-weight: 600;
+  padding: 14px 20px;
+  border-radius: 48px;
+  font-weight: 700;
   font-size: 0.85rem;
-  border: 1.5px solid #e2e8f0;
+  border: 1.5px solid #e2ece4;
   background: white;
   cursor: pointer;
   transition: all 0.2s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
+  font-family: 'Jost', sans-serif;
 }
 
-.btn-pdf {
-  color: #8B5A2B;
-  border-color: #e6d5b8;
+.btn-pdf-premium {
+  color: #1b4d3e;
+  border-color: #cde3d9;
 }
 
-.btn-excel {
+.btn-excel-premium {
   color: #0f6e4a;
-  border-color: #bbf7d0;
+  border-color: #cde3d9;
 }
 
-.btn-reset {
-  color: #475569;
+.btn-reset-premium {
+  color: #64748b;
 }
 
-.footer {
+.btn-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+}
+
+/* Footer */
+.footer-premium {
   text-align: center;
   font-size: 0.7rem;
-  padding: 20px 36px 28px;
-  border-top: 1px solid #eef2ff;
-  color: #7c8ba0;
+  padding: 24px 40px 32px;
+  border-top: 1px solid #e2ece4;
+  color: #8aa79a;
   background: #ffffff;
+  font-weight: 500;
 }
 
-@media (min-width: 1200px) {
-  .left-card {
-    max-width: 400px;
-  }
+/* Animations */
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.qr-updated {
+  animation: fadeSlide 0.35s ease;
 }
 
 @media (max-width: 640px) {
-  .total-amount {
+  .total-amount-premium {
+    font-size: 1.6rem;
+  }
+  .brand-premium h1 {
     font-size: 1.5rem;
   }
-  .btn-outline {
-    padding: 10px 12px;
+  .btn-premium {
+    padding: 10px 14px;
+    font-size: 0.75rem;
+  }
+  .upi-id {
     font-size: 0.7rem;
   }
-}
-
-.whatsapp-badge {
-  background: #e8f5e9;
-  padding: 8px 12px;
-  border-radius: 40px;
-  font-size: 0.7rem;
-  text-align: center;
-  margin-top: 12px;
-  color: #1e7e34;
-}
-
-.pudukkottai-badge {
-  background: #FFD966;
-  color: #5D3A1A;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
 }
 </style>
 </head>
 <body>
 
-<div class="app-container">
-  <!-- Header with Pudukkottai Location -->
-  <div class="header-premium">
-    <div class="header-flex">
-      <div class="logo">
-        <h1><span>⚡</span> KR Electrician</h1>
-        <div class="tagline">
-          <span>📍 Pudukkottai | Tamil Nadu</span>
-          <span class="pudukkottai-badge">⭐ 4.9 ★ Trusted Local Service</span>
+<div class="pro-billing">
+  <!-- Premium Header -->
+  <div class="premium-header">
+    <div class="header-wrapper">
+      <div class="brand-premium">
+        <h1><i class="fas fa-bolt"></i> KR ELECTRICIAN</h1>
+        <p>Professional Electrical Services | Quality Assured Since 2015</p>
+        <div class="location-info">
+          <span class="location-badge"><i class="fas fa-map-marker-alt"></i> Pudukkottai, Tamil Nadu</span>
+          <span class="rating-badge"><i class="fas fa-star"></i> 4.9 ★ (500+ Reviews)</span>
         </div>
       </div>
-      <div class="business-info">
-        <strong>KR Electricals - Pudukkottai</strong>
-        📞 +91 8012802740 | 📧 roobaneee2810@gmail.com<br>
-        📍 Main Road, Near Bus Stand, Pudukkottai - 622001<br>
-        <div class="location-badge">🏪 Serving Pudukkottai & Surrounding Areas</div>
+      <div class="contact-premium">
+        <strong><i class="fas fa-phone-alt"></i> +91 8012802740</strong>
+        <span><i class="fas fa-envelope"></i> roobaneee2810@gmail.com</span>
+        <span><i class="fas fa-location-dot"></i> Main Road, Near Bus Stand</span>
       </div>
     </div>
   </div>
 
-  <div class="dashboard">
-    <!-- Left Panel: Customer Details + WhatsApp + UPI QR -->
-    <div class="left-card">
-      <div class="form-card">
-        <div class="input-group">
-          <label>👤 CUSTOMER NAME *</label>
-          <input type="text" id="customerName" placeholder="Enter customer full name" autocomplete="off">
+  <div class="dashboard-layout">
+    <!-- LEFT PANEL - Customer & UPI QR -->
+    <div class="left-panel-premium">
+      <div class="form-card-premium">
+        <div class="form-group-premium">
+          <label><i class="fas fa-user"></i> CUSTOMER NAME</label>
+          <input type="text" id="customerName" placeholder="Enter full name" autocomplete="off">
         </div>
-        <div class="input-group">
-          <label>📱 WHATSAPP NUMBER *</label>
+        <div class="form-group-premium">
+          <label><i class="fab fa-whatsapp"></i> WHATSAPP NUMBER</label>
           <input type="tel" id="whatsappNumber" placeholder="+91 98765 43210" value="+91 ">
-          <div class="whatsapp-badge">💬 Professional bill will be sent directly to this WhatsApp number</div>
         </div>
-        <div class="input-group">
-          <label>📍 ADDRESS (Pudukkottai Area)</label>
+        <div class="form-group-premium">
+          <label><i class="fas fa-location-dot"></i> ADDRESS / LOCATION</label>
           <textarea id="customerAddress" rows="2" placeholder="Street, Area, Landmark, Pudukkottai"></textarea>
         </div>
-        
-        <button class="btn-primary btn-whatsapp" onclick="sendBillToCustomerWhatsApp()">
-          💬 Send Professional Bill via WhatsApp
+        <button class="btn-whatsapp-premium" onclick="sendWhatsAppBill()">
+          <i class="fab fa-whatsapp"></i> Send Bill via WhatsApp
         </button>
-        
-        <!-- UPI QR Code Section -->
-        <div class="upi-card">
-          <div class="upi-title">
-            💳 Scan & Pay via UPI
+      </div>
+
+      <!-- Dynamic UPI QR Card -->
+      <div class="upi-qr-premium">
+        <div class="qr-title">
+          <i class="fas fa-qrcode"></i> SCAN & PAY
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <div id="dynamicQRCode"></div>
+        <div class="upi-details-premium">
+          <div class="upi-id">
+            <i class="fas fa-credit-card"></i> roobaneee2810@okicici
           </div>
-          <div class="qr-container">
-            <div id="qrcode"></div>
-          </div>
-          <div class="upi-details">
-            <div class="upi-id">
-              roobaneee2810@okicici
-            </div>
-            <button class="copy-btn" onclick="copyUPIID()">📋 Copy UPI ID</button>
-          </div>
-          <div class="email-info">
-            📧 Email: roobaneee2810@gmail.com<br>
-            💰 Pay via Google Pay, PhonePe, Paytm, Any UPI App
-          </div>
+          <button class="copy-btn-premium" onclick="copyUPIID()"><i class="fas fa-copy"></i> Copy UPI ID</button>
+        </div>
+        <div class="amount-badge" id="qrAmountBadge">
+          <i class="fas fa-rupee-sign"></i> Amount: ₹0.00
+        </div>
+        <div style="font-size: 0.7rem; margin-top: 12px; color: #5b7c6e;">
+          <i class="fas fa-check-circle"></i> Google Pay | PhonePe | Paytm | Any UPI App
         </div>
       </div>
     </div>
 
-    <!-- Right Panel: Billing Section -->
-    <div class="right-card">
-      <!-- Add Item Row -->
-      <div class="add-item-bar">
-        <input type="text" id="itemName" placeholder="Product / Service (e.g., Wire, MCB, Fan Repair)">
-        <input type="number" id="itemQty" placeholder="Qty" value="1" step="1">
+    <!-- RIGHT PANEL - Billing Section -->
+    <div class="right-panel-premium">
+      <!-- Add Item Bar -->
+      <div class="add-item-premium">
+        <input type="text" id="itemName" placeholder="Product / Service (e.g., Copper Wire, MCB)">
+        <input type="number" id="itemQty" placeholder="Quantity" value="1" step="1">
         <input type="number" id="itemPrice" placeholder="Price (₹)" step="0.01">
-        <button class="btn-add" onclick="addBillItem()">+ Add Item</button>
+        <button class="btn-add-premium" onclick="addBillItem()"><i class="fas fa-plus"></i> Add</button>
       </div>
 
-      <!-- Bill Table -->
-      <div class="table-wrapper">
-        <table class="bill-table" id="mainBillTable">
+      <!-- Invoice Table -->
+      <div class="table-wrapper-premium">
+        <table class="invoice-table" id="billTable">
           <thead>
             <tr>
-              <th>#</th>
-              <th>ITEM</th>
-              <th>QTY</th>
-              <th>UNIT PRICE</th>
-              <th>TOTAL</th>
-              <th></th>
+              <th><i class="fas fa-hashtag"></i> #</th>
+              <th><i class="fas fa-box"></i> ITEM</th>
+              <th><i class="fas fa-calculator"></i> QTY</th>
+              <th><i class="fas fa-tag"></i> UNIT PRICE</th>
+              <th><i class="fas fa-rupee-sign"></i> TOTAL</th>
+              <th><i class="fas fa-trash"></i></th>
             </tr>
           </thead>
           <tbody id="billTableBody">
             <tr class="empty-state">
-              <td colspan="6">📋 Add items to create bill — Professional Service from Pudukkottai</td>
+              <td colspan="6"><i class="fas fa-file-invoice"></i> Add items to create professional bill</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <!-- Total Section (No GST) -->
-      <div class="total-section">
-        <span class="total-label">GRAND TOTAL (No GST)</span>
-        <span class="total-amount" id="grandTotalAmount">₹ 0.00</span>
+      <!-- Total Section -->
+      <div class="total-premium">
+        <span class="total-label-premium"><i class="fas fa-chart-line"></i> GRAND TOTAL</span>
+        <span class="total-amount-premium" id="grandTotalAmount">₹ 0.00</span>
       </div>
 
       <!-- Action Buttons -->
-      <div class="action-group">
-        <button class="btn-outline btn-reset" onclick="resetCompleteBill()">🗑 Reset</button>
-        <button class="btn-outline btn-excel" onclick="exportToExcelNoGST()">📊 Excel</button>
-        <button class="btn-outline btn-pdf" onclick="generatePDFNoGST()">📄 PDF Invoice</button>
+      <div class="action-group-premium">
+        <button class="btn-premium btn-reset-premium" onclick="resetFullBill()"><i class="fas fa-undo-alt"></i> Reset</button>
+        <button class="btn-premium btn-excel-premium" onclick="exportToExcel()"><i class="fas fa-file-excel"></i> Excel</button>
+        <button class="btn-premium btn-pdf-premium" onclick="generatePDFInvoice()"><i class="fas fa-file-pdf"></i> PDF Invoice</button>
       </div>
     </div>
   </div>
 
-  <div class="footer">
-    🔌 KR Electrician - Pudukkottai | Quality Electrical Services Since 2015 | Emergency: +91 8012802740 | 24/7 Service Available
+  <div class="footer-premium">
+    <i class="fas fa-bolt"></i> KR Electrician - Pudukkottai's Most Trusted Electrical Service | 24/7 Emergency Support: +91 8012802740
   </div>
 </div>
 
 <script>
-// ======================== UPI QR CODE GENERATION ========================
-// Generate QR Code for UPI ID: roobaneee2810@okicici
-const upiId = "roobaneee2810@okicici";
-const payeeName = "KR Electrician";
-const amount = ""; // Will be dynamic in bill
-const currency = "INR";
+// ======================== CONFIGURATION ========================
+const UPI_ID = "roobaneee2810@okicici";
+const BUSINESS_NAME = "KR Electrician";
+const BUSINESS_EMAIL = "roobaneee2810@gmail.com";
+let billItems = [];
 
-// Function to generate UPI QR Code
-function generateUPIQRCode() {
-    const qrContainer = document.getElementById("qrcode");
-    qrContainer.innerHTML = "";
-    
-    // Create UPI Intent URL
-    // Format: upi://pay?pa=roobaneee2810@okicici&pn=KR%20Electrician&am=&cu=INR
-    const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payeeName)}&am=&cu=INR`;
-    
-    // Generate QR Code using QRCode.js library
-    new QRCode(qrContainer, {
-        text: upiUrl,
-        width: 180,
-        height: 180,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-    });
-}
-
-// Copy UPI ID function
-function copyUPIID() {
-    navigator.clipboard.writeText(upiId).then(() => {
-        alert("✅ UPI ID copied: " + upiId);
-    }).catch(() => {
-        alert("Press Ctrl+C to copy: " + upiId);
-    });
-}
-
-// ======================== BILL STATE (NO GST) ========================
-let billItemsArray = [];
-
-function formatRupees(amount) {
+// ======================== HELPERS ========================
+function formatINR(amount) {
   return '₹ ' + amount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-// Render Table
-function renderBillTable() {
-  const tbody = document.getElementById('billTableBody');
-  tbody.innerHTML = '';
+function getTotal() {
+  return billItems.reduce((sum, item) => sum + item.total, 0);
+}
+
+// ======================== DYNAMIC UPI QR WITH AMOUNT ========================
+function generateUPIQR() {
+  const totalAmount = getTotal();
+  const qrContainer = document.getElementById("dynamicQRCode");
+  if (!qrContainer) return;
   
-  if (billItemsArray.length === 0) {
-    tbody.innerHTML = '<tr class="empty-state"><td colspan="6">📋 Add items to create bill — Professional Service from Pudukkottai</td></tr>';
-    document.getElementById('grandTotalAmount').innerHTML = '₹ 0.00';
+  qrContainer.innerHTML = "";
+  
+  let upiUrl = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(BUSINESS_NAME)}&cu=INR`;
+  
+  if (totalAmount > 0) {
+    upiUrl += `&am=${totalAmount.toFixed(2)}`;
+  }
+  
+  try {
+    new QRCode(qrContainer, {
+      text: upiUrl,
+      width: 180,
+      height: 180,
+      colorDark: "#1b4d3e",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+    
+    const amountBadge = document.getElementById("qrAmountBadge");
+    if (amountBadge) {
+      if (totalAmount > 0) {
+        amountBadge.innerHTML = `<i class="fas fa-rupee-sign"></i> Amount: ${formatINR(totalAmount)}`;
+      } else {
+        amountBadge.innerHTML = `<i class="fas fa-rupee-sign"></i> Amount: ₹0.00 (Add items)`;
+      }
+    }
+    
+    qrContainer.classList.add('qr-updated');
+    setTimeout(() => qrContainer.classList.remove('qr-updated'), 300);
+    
+  } catch (error) {
+    qrContainer.innerHTML = '<div style="padding:20px;"><i class="fas fa-exclamation-triangle"></i> QR Error</div>';
+  }
+}
+
+function copyUPIID() {
+  navigator.clipboard.writeText(UPI_ID).then(() => {
+    alert("✅ UPI ID copied: " + UPI_ID);
+  });
+}
+
+// ======================== BILL MANAGEMENT ========================
+function renderBillTable() {
+  const tbody = document.getElementById("billTableBody");
+  tbody.innerHTML = "";
+  
+  if (billItems.length === 0) {
+    tbody.innerHTML = '<tr class="empty-state"><td colspan="6"><i class="fas fa-file-invoice"></i> Add items to create professional bill</td></tr>';
+    document.getElementById("grandTotalAmount").innerHTML = "₹ 0.00";
+    generateUPIQR();
     return;
   }
   
-  let totalSum = 0;
-  billItemsArray.forEach((item, idx) => {
-    totalSum += item.total;
+  let total = 0;
+  billItems.forEach((item, idx) => {
+    total += item.total;
     const row = tbody.insertRow();
-    row.insertCell(0).innerText = idx + 1;
-    row.insertCell(1).innerText = item.name;
+    row.insertCell(0).innerHTML = `<strong>${idx + 1}</strong>`;
+    row.insertCell(1).innerHTML = `<i class="fas fa-plug"></i> ${item.name}`;
     row.insertCell(2).innerText = item.qty;
     row.insertCell(3).innerText = '₹ ' + item.price.toLocaleString('en-IN', { minimumFractionDigits: 2 });
-    row.insertCell(4).innerHTML = '<strong style="color:#8B5A2B;">' + formatRupees(item.total) + '</strong>';
+    row.insertCell(4).innerHTML = `<strong style="color:#1b4d3e;">${formatINR(item.total)}</strong>`;
     const delCell = row.insertCell(5);
-    const delBtn = document.createElement('button');
-    delBtn.innerText = '✕';
-    delBtn.className = 'delete-item';
-    delBtn.onclick = (function(id) { return function() { deleteItemById(id); }; })(item.id);
+    const delBtn = document.createElement("button");
+    delBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    delBtn.className = "delete-btn";
+    delBtn.style.background = "none";
+    delBtn.style.cursor = "pointer";
+    delBtn.style.fontSize = "1rem";
+    delBtn.onclick = (function(id) { return function() { deleteItem(id); }; })(item.id);
     delCell.appendChild(delBtn);
   });
   
-  document.getElementById('grandTotalAmount').innerHTML = formatRupees(totalSum);
+  document.getElementById("grandTotalAmount").innerHTML = formatINR(total);
+  generateUPIQR();
 }
 
 function addBillItem() {
-  const name = document.getElementById('itemName').value.trim();
-  let qty = parseFloat(document.getElementById('itemQty').value);
-  let price = parseFloat(document.getElementById('itemPrice').value);
+  const name = document.getElementById("itemName").value.trim();
+  let qty = parseFloat(document.getElementById("itemQty").value);
+  let price = parseFloat(document.getElementById("itemPrice").value);
   
-  if (!name) { alert('Please enter product/service name'); return; }
-  if (isNaN(qty) || qty <= 0) { alert('Enter valid quantity'); return; }
-  if (isNaN(price) || price <= 0) { alert('Enter valid price'); return; }
+  if (!name) { alert("Please enter product/service name"); return; }
+  if (isNaN(qty) || qty <= 0) { alert("Enter valid quantity"); return; }
+  if (isNaN(price) || price <= 0) { alert("Enter valid price"); return; }
   
   qty = parseFloat(qty.toFixed(3));
   price = parseFloat(price.toFixed(2));
   const total = parseFloat((qty * price).toFixed(2));
   
-  billItemsArray.push({
+  billItems.push({
     id: Date.now() + Math.random(),
     name: name,
     qty: qty,
@@ -727,107 +787,93 @@ function addBillItem() {
   });
   
   renderBillTable();
-  document.getElementById('itemName').value = '';
-  document.getElementById('itemQty').value = '1';
-  document.getElementById('itemPrice').value = '';
-  document.getElementById('itemName').focus();
+  document.getElementById("itemName").value = "";
+  document.getElementById("itemQty").value = "1";
+  document.getElementById("itemPrice").value = "";
+  document.getElementById("itemName").focus();
 }
 
-function deleteItemById(id) {
-  billItemsArray = billItemsArray.filter(item => item.id !== id);
+function deleteItem(id) {
+  billItems = billItems.filter(item => item.id !== id);
   renderBillTable();
 }
 
-function resetCompleteBill() {
-  if (billItemsArray.length > 0 && confirm('Clear entire bill? All items will be removed.')) {
-    billItemsArray = [];
+function resetFullBill() {
+  if (billItems.length > 0 && confirm("Clear entire bill?")) {
+    billItems = [];
     renderBillTable();
-    document.getElementById('customerName').value = '';
-    document.getElementById('whatsappNumber').value = '+91 ';
-    document.getElementById('customerAddress').value = '';
-  } else if (billItemsArray.length === 0) {
-    alert('Bill is already empty');
+    document.getElementById("customerName").value = "";
+    document.getElementById("whatsappNumber").value = "+91 ";
+    document.getElementById("customerAddress").value = "";
+  } else if (billItems.length === 0) {
+    alert("Bill is already empty");
   }
 }
 
-// ======================== PROFESSIONAL WHATSAPP MESSAGE WITH UPI DETAILS ========================
-function generateWhatsAppCustomerMessage() {
-  if (billItemsArray.length === 0) {
-    alert('❌ No items in bill! Please add products before sending.');
+// ======================== WHATSAPP SEND ========================
+function generateWhatsAppMessage() {
+  if (billItems.length === 0) {
+    alert("No items in bill!");
     return null;
   }
   
-  const customerName = document.getElementById('customerName').value.trim();
-  if (!customerName) {
-    alert('⚠️ Please enter customer name before sending bill');
-    return null;
-  }
+  const customer = document.getElementById("customerName").value.trim() || "Valued Customer";
+  const whatsappNum = document.getElementById("whatsappNumber").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+  const total = getTotal();
+  const date = new Date().toLocaleString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  const invoiceNo = "KR-" + new Date().getFullYear() + "-" + Math.floor(Math.random() * 10000);
   
-  const whatsappNum = document.getElementById('whatsappNumber').value.trim();
-  if (!whatsappNum || whatsappNum === '+91 ') {
-    alert('📱 Please enter customer WhatsApp number (with country code)');
-    return null;
-  }
-  
-  const address = document.getElementById('customerAddress').value.trim();
-  const currentDate = new Date().toLocaleString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-  const invoiceNumber = 'KR-PDK-' + new Date().getFullYear() + '-' + Math.floor(Math.random() * 10000);
-  
-  // Build professional items list
-  let itemsText = '';
-  billItemsArray.forEach((item, idx) => {
+  let itemsText = "";
+  billItems.forEach((item, idx) => {
     itemsText += `${idx+1}. ${item.name} | Qty: ${item.qty} × ₹${item.price.toFixed(2)} = ₹${item.total.toFixed(2)}\n`;
   });
   
-  const subtotal = billItemsArray.reduce((sum, i) => sum + i.total, 0);
-  
-  const message = `╔══════════════════════════════════════════════════════════╗
-║              🔌 KR ELECTRICIAN - PUDUKKOTTAI 🔌              ║
-║         ⚡ Professional Electrical Services Since 2015 ⚡         ║
-╚══════════════════════════════════════════════════════════╝
+  const message = `
+              🔌 KR ELECTRICIAN - PUDUKKOTTAI 🔌              
+         ⚡ Professional Electrical Services Since 2015 ⚡         
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                      *OFFICIAL TAX INVOICE*                      
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━
+        *OFFICIAL INVOICE*                    
+━━━━━━━━━━━━
 
 🏠 *Customer Details:*
-   👤 Name: ${customerName}
-   📱 WhatsApp: ${whatsappNum}
-${address ? `   📍 Address: ${address}\n` : ''}   📅 Date: ${currentDate}
-   🧾 Invoice No: ${invoiceNumber}
+   👤 Name: ${customer}
+   📱 WhatsApp: ${whatsappNum || "Not provided"}
+${address ? `   📍 Address: ${address}\n` : ""}   📅 Date: ${date}
+   🧾 Invoice No: ${invoiceNo}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                    *BILL DETAILS*                    
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━
+        *BILL DETAILS*                    
+━━━━━━━━━━━━
 
 ${itemsText}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💰 *GRAND TOTAL:* ₹${subtotal.toFixed(2)}
-📌 *GST:* Not Applicable (Service Professional)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━
+💰 *GRAND TOTAL:* ₹${total.toFixed(2)}
+📌 *GST:* Not Applicable
+━━━━━━━━━━━━
 
-💳 *Payment Options:*
-   ✅ UPI ID: roobaneee2810@okicici
-   ✅ Google Pay / PhonePe / Paytm: roobaneee2810@okicici
-   ✅ Scan QR Code for Instant Payment
-   ✅ Cash / Card / NetBanking
+💳 *PAYMENT OPTIONS:*
+   ✅ UPI ID: ${UPI_ID}
+   ✅ Google Pay / PhonePe / Paytm: ${UPI_ID}
+   ✅ Scan QR Code (Amount: ₹${total.toFixed(2)})
+   ✅ Cash / Card
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━
 📍 *KR Electrician - Pudukkottai* 📍
    Main Road, Near Bus Stand, Pudukkottai - 622001
    📞 24/7 Support: +91 8012802740
-   📧 Email: roobaneee2810@gmail.com
-   🛠️ Emergency Services | Home Wiring | Repairs | Installation
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   📧 Email: ${BUSINESS_EMAIL}
+━━━━━━━━━━━━
 
-🙏 *Thank you for choosing KR Electrician!* 🙏
-⭐ Rate us 5 Star on Google | Quality Service Guaranteed ⭐`;
+🙏 *Thank you for choosing KR Electrician!* 🙏`;
   
   return { message, whatsappNum };
 }
 
-function sendBillToCustomerWhatsApp() {
-  const result = generateWhatsAppCustomerMessage();
+function sendWhatsAppBill() {
+  const result = generateWhatsAppMessage();
   if (!result) return;
   
   let rawNumber = result.whatsappNum.replace(/\s+/g, '').replace(/\+/g, '');
@@ -837,180 +883,117 @@ function sendBillToCustomerWhatsApp() {
   rawNumber = rawNumber.replace(/\D/g, '');
   
   if (rawNumber.length < 10) {
-    alert('Invalid WhatsApp number. Please enter a valid number (e.g., 9876543210 or +919876543210)');
+    alert("Please enter a valid WhatsApp number (e.g., 9876543210)");
     return;
   }
   
   const encodedMsg = encodeURIComponent(result.message);
-  const whatsappUrl = `https://wa.me/${rawNumber}?text=${encodedMsg}`;
-  
-  window.open(whatsappUrl, '_blank');
-  setTimeout(() => {
-    alert(`✅ Professional bill prepared for ${result.whatsappNum}!\n\n📍 KR Electrician - Pudukkottai\nUPI: roobaneee2810@okicici\nClick "Send" to share the invoice with your customer.`);
-  }, 800);
+  window.open(`https://wa.me/${rawNumber}?text=${encodedMsg}`, '_blank');
+  setTimeout(() => alert(`✅ Bill ready for ${result.whatsappNum}!\nAmount: ₹${getTotal().toFixed(2)}`), 500);
 }
 
-// ======================== PDF GENERATION WITH UPI QR ========================
-function generatePDFNoGST() {
-  if (billItemsArray.length === 0) {
-    alert('No items to generate PDF. Add items first.');
+// ======================== PDF GENERATION ========================
+function generatePDFInvoice() {
+  if (billItems.length === 0) {
+    alert("No items to generate PDF.");
     return;
   }
   
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const customer = document.getElementById("customerName").value.trim() || "Guest";
+  const total = getTotal();
   
-  const custName = document.getElementById('customerName').value.trim() || 'Guest Customer';
-  const custWhatsapp = document.getElementById('whatsappNumber').value.trim() || 'Not provided';
-  const custAddress = document.getElementById('customerAddress').value.trim();
-  const invoiceNo = 'KR-PDK-' + new Date().getFullYear() + '-' + Math.floor(Math.random() * 10000);
-  const subtotal = billItemsArray.reduce((sum, i) => sum + i.total, 0);
-  
-  // Header
-  doc.setFillColor(93, 58, 26);
-  doc.rect(0, 0, 210, 45, 'F');
+  doc.setFillColor(10, 43, 42);
+  doc.rect(0, 0, 210, 42, 'F');
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(20);
   doc.setTextColor(255, 255, 255);
   doc.text('⚡ KR ELECTRICIAN', 20, 20);
   doc.setFontSize(8);
-  doc.setTextColor(255, 215, 130);
+  doc.setTextColor(255, 217, 102);
   doc.text('Pudukkottai - Tamil Nadu', 20, 28);
   doc.setTextColor(200, 200, 200);
   doc.text('+91 8012802740 | roobaneee2810@gmail.com', 130, 18);
-  doc.text('Main Road, Near Bus Stand, Pudukkottai - 622001', 115, 25);
   
-  // Invoice Title
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(14);
-  doc.setTextColor(93, 58, 26);
-  doc.text('PROFESSIONAL INVOICE', 20, 58);
+  doc.setTextColor(10, 43, 42);
+  doc.text('PROFESSIONAL INVOICE', 20, 56);
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
-  doc.setTextColor(100, 116, 139);
-  doc.text(`Invoice No: ${invoiceNo}`, 20, 66);
+  doc.text(`Customer: ${customer}`, 20, 66);
   doc.text(`Date: ${new Date().toLocaleDateString('en-IN')}`, 20, 72);
   
-  // Customer Box
-  doc.setFillColor(254, 245, 232);
-  doc.rect(20, 80, 170, 32, 'F');
+  let y = 88;
+  doc.setFillColor(27, 77, 62, 0.1);
+  doc.rect(20, y, 170, 8, 'F');
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
-  doc.setTextColor(0, 0, 0);
-  doc.text('BILL TO:', 24, 88);
-  doc.setFont('helvetica', 'normal');
-  doc.text(custName, 24, 96);
-  doc.text(`WhatsApp: ${custWhatsapp}`, 24, 103);
-  if (custAddress) doc.text(custAddress.substring(0, 45), 24, 110);
+  doc.text('SL', 24, y + 5);
+  doc.text('ITEM', 38, y + 5);
+  doc.text('QTY', 105, y + 5);
+  doc.text('RATE (₹)', 128, y + 5);
+  doc.text('AMOUNT (₹)', 158, y + 5);
   
-  let yPos = 120;
-  // Table Header
-  doc.setFillColor(139, 90, 43, 0.2);
-  doc.rect(20, yPos, 170, 8, 'F');
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8);
-  doc.setTextColor(0, 0, 0);
-  doc.text('SL', 24, yPos + 5);
-  doc.text('DESCRIPTION', 38, yPos + 5);
-  doc.text('QTY', 105, yPos + 5);
-  doc.text('RATE (₹)', 128, yPos + 5);
-  doc.text('AMOUNT (₹)', 158, yPos + 5);
-  
-  let currentY = yPos + 12;
-  let serial = 1;
-  
-  for (const item of billItemsArray) {
+  let currentY = y + 12;
+  billItems.forEach((item, idx) => {
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
-    doc.text(serial.toString(), 24, currentY);
-    let desc = item.name.length > 35 ? item.name.substring(0, 32) + '...' : item.name;
-    doc.text(desc, 38, currentY);
+    doc.setFontSize(9);
+    doc.text((idx + 1).toString(), 24, currentY);
+    doc.text(item.name.length > 28 ? item.name.substring(0, 25) + '...' : item.name, 38, currentY);
     doc.text(item.qty.toString(), 105, currentY);
     doc.text(`₹ ${item.price.toFixed(2)}`, 128, currentY);
     doc.text(`₹ ${item.total.toFixed(2)}`, 158, currentY);
     currentY += 6.5;
-    serial++;
-  }
+  });
   
-  currentY += 5;
-  doc.setDrawColor(139, 90, 43);
+  currentY += 6;
   doc.line(120, currentY - 2, 190, currentY - 2);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(11);
-  doc.setTextColor(139, 90, 43);
-  doc.text(`GRAND TOTAL: ₹ ${subtotal.toFixed(2)}`, 145, currentY + 3);
+  doc.setTextColor(27, 77, 62);
+  doc.text(`GRAND TOTAL: ₹ ${total.toFixed(2)}`, 145, currentY + 3);
   
-  // UPI Details Section
-  currentY += 12;
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
-  doc.setTextColor(30, 74, 118);
-  doc.text('💳 PAYMENT INFORMATION', 20, currentY);
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8);
-  doc.setTextColor(0, 0, 0);
-  doc.text(`UPI ID: roobaneee2810@okicici`, 20, currentY + 6);
-  doc.text(`Email: roobaneee2810@gmail.com`, 20, currentY + 12);
-  doc.text(`Scan QR Code or Pay via any UPI App (Google Pay, PhonePe, Paytm)`, 20, currentY + 18);
-  
-  // Footer
   doc.setFontSize(7);
   doc.setTextColor(100, 116, 139);
-  doc.text('📍 KR Electrician - Main Road, Near Bus Stand, Pudukkottai - 622001', 45, 270);
-  doc.text('📞 24/7 Support: +91 8012802740 | UPI: roobaneee2810@okicici', 40, 276);
-  doc.text('⚡ No GST Applicable | Serving Pudukkottai Since 2015 ⚡', 55, 283);
-  doc.text('Thank you for choosing KR Electrician! Quality Service Guaranteed', 48, 290);
+  doc.text(`UPI: ${UPI_ID} | Email: ${BUSINESS_EMAIL}`, 60, 270);
+  doc.text('Thank you for choosing KR Electrician!', 70, 278);
   
-  doc.save(`KR_Pudukkottai_Bill_${custName.replace(/\s/g, '_')}_${Date.now()}.pdf`);
+  doc.save(`KR_Bill_${customer.replace(/\s/g, '_')}_${Date.now()}.pdf`);
 }
 
 // ======================== EXCEL EXPORT ========================
-function exportToExcelNoGST() {
-  if (billItemsArray.length === 0) {
-    alert('No items to export.');
+function exportToExcel() {
+  if (billItems.length === 0) {
+    alert("No items to export.");
     return;
   }
   
-  const cust = document.getElementById('customerName').value.trim() || 'Guest';
-  const whatsapp = document.getElementById('whatsappNumber').value.trim() || 'Not provided';
-  const subtotal = billItemsArray.reduce((sum, i) => sum + i.total, 0);
-  
+  const customer = document.getElementById("customerName").value.trim() || "Guest";
+  const total = getTotal();
   const sheetData = [
     ['KR ELECTRICIAN - PUDUKKOTTAI'],
-    ['Professional Electrical Services', 'Since 2015', '📍 Main Road, Pudukkottai - 622001'],
-    ['Phone: +91 8012802740', 'Email: roobaneee2810@gmail.com', 'UPI: roobaneee2810@okicici'],
-    [`Customer: ${cust}`, `WhatsApp: ${whatsapp}`, `Date: ${new Date().toLocaleString()}`],
+    ['Professional Electrical Services', 'Phone: +91 8012802740', `UPI: ${UPI_ID}`],
+    [`Customer: ${customer}`, `Date: ${new Date().toLocaleString()}`, `Total: ₹${total.toFixed(2)}`],
     [],
     ['Sl No.', 'Product / Service', 'Quantity', 'Unit Price (₹)', 'Total (₹)']
   ];
   
-  let serial = 1;
-  for (const item of billItemsArray) {
-    sheetData.push([serial, item.name, item.qty, item.price, item.total]);
-    serial++;
-  }
+  billItems.forEach((item, idx) => {
+    sheetData.push([idx + 1, item.name, item.qty, item.price, item.total]);
+  });
   
   sheetData.push([]);
-  sheetData.push(['', '', '', 'GRAND TOTAL:', subtotal]);
-  sheetData.push([]);
-  sheetData.push(['Payment Details:', 'UPI ID: roobaneee2810@okicici']);
-  sheetData.push(['', 'Email: roobaneee2810@gmail.com']);
-  sheetData.push(['', 'Scan QR Code or Pay via any UPI App']);
-  sheetData.push([]);
-  sheetData.push(['📍 KR Electrician - Pudukkottai', '24/7 Support: +91 8012802740']);
+  sheetData.push(['', '', '', 'GRAND TOTAL:', total]);
+  sheetData.push(['Payment: UPI - roobaneee2810@okicici', 'Scan QR Code to Pay']);
   
   const ws = XLSX.utils.aoa_to_sheet(sheetData);
-  ws['!cols'] = [{wch:6},{wch:30},{wch:10},{wch:14},{wch:16}];
+  ws['!cols'] = [{wch:6},{wch:32},{wch:10},{wch:14},{wch:16}];
   const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'KR_Pudukkottai_Bill');
-  XLSX.writeFile(wb, `KR_Pudukkottai_Bill_${cust}_${Date.now()}.xlsx`);
+  XLSX.utils.book_append_sheet(wb, ws, 'KR_Bill');
+  XLSX.writeFile(wb, `KR_Bill_${customer}_${Date.now()}.xlsx`);
 }
-
-// Initialize QR Code on page load
-window.onload = function() {
-    generateUPIQRCode();
-    renderBillTable();
-};
 
 // Enter key support
 document.addEventListener('keypress', (e) => {
@@ -1021,6 +1004,8 @@ document.addEventListener('keypress', (e) => {
     }
   }
 });
+
+renderBillTable();
 </script>
 </body>
 </html>
